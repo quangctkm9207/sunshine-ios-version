@@ -19,6 +19,7 @@ class ForecastListViewController: UITableViewController, UITextFieldDelegate, On
     var foreCastArray = [ForecastDetail]()
     
     var choosenForecast: ForecastDetail!
+    @IBOutlet weak var progressIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,8 @@ class ForecastListViewController: UITableViewController, UITextFieldDelegate, On
       
     }
     @IBAction func updateWeatherByLocation(sender: AnyObject) {
+        self.foreCastArray.removeAll()
+        self.tableView.reloadData()
         let location = searchTextField.text!
         self.updateData(location)
     }
@@ -52,7 +55,7 @@ class ForecastListViewController: UITableViewController, UITextFieldDelegate, On
     
     private func customizeNavigationBar(){
         // Change the navigation bar background color to blue.
-        navigationController!.navigationBar.barTintColor = UIColor.cyanColor()
+        navigationController!.navigationBar.barTintColor = UIColor.orangeColor()
         // Change the color of the navigation bar button items to white.
         navigationController!.navigationBar.tintColor = UIColor.blackColor()
         // Change the color of the navigation bar title text to yellow.
@@ -116,6 +119,11 @@ class ForecastListViewController: UITableViewController, UITextFieldDelegate, On
     }
     
     private func enableUIView(enabled: Bool){
+        if !enabled {
+            self.progressIndicator.startAnimating()
+        }else {
+            self.progressIndicator.stopAnimating()
+        }
         self.searchTextField.enabled = enabled
         self.searchButton.enabled = enabled
     }

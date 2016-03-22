@@ -31,7 +31,7 @@ class OpenWeatherMapClient: NSObject {
         
         //MARK: Create the request
         let request = NSMutableURLRequest(URL: url)
-        request.timeoutInterval = 30
+        request.timeoutInterval = 20
         //MARK: Make the request
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request){ (data, response, error) in
             

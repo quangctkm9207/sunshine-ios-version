@@ -30,6 +30,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" id="Ug1-zm-gQI">
+                            <rect key="frame" x="0.0" y="170" width="600" height="37"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="color" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </activityIndicatorView>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomTableViewCell" rowHeight="78" id="vp0-tJ-Jzp" customClass="CustomTableViewCell" customModule="Sunshine" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="78"/>
@@ -126,6 +131,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="progressIndicator" destination="Ug1-zm-gQI" id="Mgi-Ch-OCM"/>
                         <outlet property="searchButton" destination="dp7-aY-Z8O" id="FbI-LB-HFj"/>
                         <outlet property="searchTextField" destination="GI1-Y2-NTe" id="4mf-sT-zVc"/>
                         <segue destination="UWT-K9-2T6" kind="show" identifier="ShowForecastDetail" id="zvJ-O9-4tV"/>
