@@ -94,7 +94,7 @@ class ForecastListViewController: UITableViewController {
             // Go throught all forecast and parse the detail resutl
             for var i = 0; i < foreCastArray.count; i++ {
                 let dailyForecast = foreCastArray[i] as [String:AnyObject]
-                guard let dateTime = dailyForecast[Constants.OpenWeatherMapReponseKeys.DateTime] as? Int else {
+                guard let dateTime = dailyForecast[Constants.OpenWeatherMapReponseKeys.DateTime] as? Double else {
                     
                     displayError("Cannot find the key \(Constants.OpenWeatherMapReponseKeys.DateTime) in \(dailyForecast)")
                     return
@@ -131,10 +131,12 @@ class ForecastListViewController: UITableViewController {
                     return
                 }
                 
+                //convert the date 
+                let dateStr = self.formatDateToHumanReadableForm(dateTime)
+                
                 // Use the result
-                let forecastStr = "\(shortDes)-\(weatherId)-\(tempMax)/\(tempMin)"
+                let forecastStr = "\(dateStr)-\(shortDes)-\(tempMax)/\(tempMin)"
                 self.data.append(forecastStr)
-                print(forecastStr)
             }
             
             //Reload data
@@ -170,7 +172,18 @@ class ForecastListViewController: UITableViewController {
             self.tableView.reloadData()
         })
     }
-
+    
+    //Format date
+    private func formatDateToHumanReadableForm(dateDouble: Double) -> String{
+        let timeInterval: NSTimeInterval = dateDouble
+        let date = NSDate(timeIntervalSince1970 : timeInterval)
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "LLL dd"
+        
+        return dateFormatter.stringFromDate(date)
+        
+    }
 
 }
 
