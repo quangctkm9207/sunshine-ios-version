@@ -29,6 +29,7 @@ class ForecastDetailViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         
+        
         //Show forecast detail 
         self.dateLabel.text = forecastDetail.dateStr
         self.maxLabel.text = "\(forecastDetail.maxTemp) \u{00B0}"
@@ -39,7 +40,6 @@ class ForecastDetailViewController: UIViewController {
         self.windLabel.text = "Wind speed: \(forecastDetail.windSpeed) km/h"
         self.weatherArtImageView.image = Utils.getArtResourceForWeatherCondition(forecastDetail.weatherCode)
     }
-    
 
     /*
     // MARK: - Navigation
@@ -52,3 +52,4 @@ class ForecastDetailViewController: UIViewController {
     */
 
 }
+

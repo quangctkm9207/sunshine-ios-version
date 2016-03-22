@@ -75,4 +75,17 @@ class Utils {
         return nil
     }
     
+    //Format date
+    static func formatDateToHumanReadableForm(dateDouble: Double) -> String{
+        let timeInterval: NSTimeInterval = dateDouble
+        let date = NSDate(timeIntervalSince1970 : timeInterval)
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "LLL dd"
+        
+        return dateFormatter.stringFromDate(date)
+        
+    }
+
+    
 }
