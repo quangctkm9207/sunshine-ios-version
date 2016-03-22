@@ -38,7 +38,7 @@ class OpenWeatherMapClient: NSObject {
             func displayError(error: String){
                 print(error)
                 //TODO: let user know more about the error
-                self.onLoadFinishListener.OnFinish(self.forecastArray)
+                self.onLoadFinishListener.OnFinish(self.forecastArray, notification: "Cannot load data")
             }
             
             //GUARD: was there any error?
@@ -147,7 +147,7 @@ class OpenWeatherMapClient: NSObject {
                 
                 self.forecastArray.append(forecast)
             }
-            self.onLoadFinishListener.OnFinish(self.forecastArray)
+            self.onLoadFinishListener.OnFinish(self.forecastArray,notification:  "Weather Forecast")
         }
         
         // Start the request
@@ -174,5 +174,5 @@ class OpenWeatherMapClient: NSObject {
 }
 
 protocol OnLoadDataListener {
-    func OnFinish(forecastArray: [ForecastDetail])
+    func OnFinish(forecastArray: [ForecastDetail], notification: String)
 }

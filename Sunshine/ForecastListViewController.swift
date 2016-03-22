@@ -15,12 +15,14 @@ class ForecastListViewController: UITableViewController, UITextFieldDelegate, On
     @IBOutlet weak var searchTextField: UITextField!
     
     @IBOutlet weak var searchButton: UIBarButtonItem!
+    @IBOutlet weak var notiLabel: UILabel!
 
     var foreCastArray = [ForecastDetail]()
     
     var choosenForecast: ForecastDetail!
     @IBOutlet weak var progressIndicator: UIActivityIndicatorView!
     
+    var notification: String!
     override func viewDidLoad() {
         super.viewDidLoad()
         searchTextField.delegate = self
@@ -102,7 +104,8 @@ class ForecastListViewController: UITableViewController, UITextFieldDelegate, On
     
     
     //Override the onFinish method from OnLoadFinishListener
-    func OnFinish(forecastArray: [ForecastDetail]) {
+    func OnFinish(forecastArray: [ForecastDetail], notification: String) {
+        self.notification = notification
         self.enableUIView(true)
         self.foreCastArray = forecastArray
         self.reloadData()
@@ -119,13 +122,16 @@ class ForecastListViewController: UITableViewController, UITextFieldDelegate, On
     }
     
     private func enableUIView(enabled: Bool){
-        if !enabled {
-            self.progressIndicator.startAnimating()
-        }else {
-            self.progressIndicator.stopAnimating()
-        }
-        self.searchTextField.enabled = enabled
-        self.searchButton.enabled = enabled
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.notiLabel.text = self.notification
+            if !enabled {
+                self.progressIndicator.startAnimating()
+            }else {
+                self.progressIndicator.stopAnimating()
+            }
+            self.searchTextField.enabled = enabled
+            self.searchButton.enabled = enabled
+        })
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
