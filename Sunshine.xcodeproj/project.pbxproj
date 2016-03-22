@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE377F3D1CA0F7A90054A21B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE377F3C1CA0F7A90054A21B /* AppDelegate.swift */; };
-		CE377F3F1CA0F7A90054A21B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE377F3E1CA0F7A90054A21B /* ViewController.swift */; };
+		CE377F3F1CA0F7A90054A21B /* ForecastListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE377F3E1CA0F7A90054A21B /* ForecastListViewController.swift */; };
 		CE377F421CA0F7A90054A21B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE377F401CA0F7A90054A21B /* Main.storyboard */; };
 		CE377F441CA0F7A90054A21B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE377F431CA0F7A90054A21B /* Assets.xcassets */; };
 		CE377F471CA0F7A90054A21B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE377F451CA0F7A90054A21B /* LaunchScreen.storyboard */; };
@@ -36,7 +36,7 @@
 /* Begin PBXFileReference section */
 		CE377F391CA0F7A90054A21B /* Sunshine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sunshine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE377F3C1CA0F7A90054A21B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CE377F3E1CA0F7A90054A21B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CE377F3E1CA0F7A90054A21B /* ForecastListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastListViewController.swift; sourceTree = "<group>"; };
 		CE377F411CA0F7A90054A21B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CE377F431CA0F7A90054A21B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE377F461CA0F7A90054A21B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -97,11 +97,9 @@
 		CE377F3B1CA0F7A90054A21B /* Sunshine */ = {
 			isa = PBXGroup;
 			children = (
+				CE377F6B1CA0F9BA0054A21B /* Controller */,
+				CE377F6A1CA0F9290054A21B /* Assets */,
 				CE377F3C1CA0F7A90054A21B /* AppDelegate.swift */,
-				CE377F3E1CA0F7A90054A21B /* ViewController.swift */,
-				CE377F401CA0F7A90054A21B /* Main.storyboard */,
-				CE377F431CA0F7A90054A21B /* Assets.xcassets */,
-				CE377F451CA0F7A90054A21B /* LaunchScreen.storyboard */,
 				CE377F481CA0F7A90054A21B /* Info.plist */,
 			);
 			path = Sunshine;
@@ -123,6 +121,24 @@
 				CE377F5E1CA0F7A90054A21B /* Info.plist */,
 			);
 			path = SunshineUITests;
+			sourceTree = "<group>";
+		};
+		CE377F6A1CA0F9290054A21B /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				CE377F431CA0F7A90054A21B /* Assets.xcassets */,
+				CE377F401CA0F7A90054A21B /* Main.storyboard */,
+				CE377F451CA0F7A90054A21B /* LaunchScreen.storyboard */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		CE377F6B1CA0F9BA0054A21B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CE377F3E1CA0F7A90054A21B /* ForecastListViewController.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,7 +272,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE377F3F1CA0F7A90054A21B /* ViewController.swift in Sources */,
+				CE377F3F1CA0F7A90054A21B /* ForecastListViewController.swift in Sources */,
 				CE377F3D1CA0F7A90054A21B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
