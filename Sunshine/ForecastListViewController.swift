@@ -11,9 +11,7 @@ import Foundation
 
 class ForecastListViewController: UITableViewController {
 
-    var data: [String] = [
-        "1","2"
-    ]
+    var foreCastArray = [ForecastDetail]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +21,7 @@ class ForecastListViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.data.count
+        return self.foreCastArray.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -31,11 +29,12 @@ class ForecastListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("ForecastCell")!
         
         //Get the data for exact cell
-        let forecastStr = data[indexPath.row]
+        let forecast = foreCastArray[indexPath.row]
         
         //Populate the data to the cell
-        cell.textLabel?.text = forecastStr
-        
+        cell.textLabel?.text = forecast.dateStr
+        cell.detailTextLabel?.text = forecast.shortDes
+        cell.imageView?.image = Utils.getIconResourceForWeatherCondition(forecast.weatherCode)
         return cell
     }
     
@@ -135,8 +134,9 @@ class ForecastListViewController: UITableViewController {
                 let dateStr = self.formatDateToHumanReadableForm(dateTime)
                 
                 // Use the result
-                let forecastStr = "\(dateStr)-\(shortDes)-\(tempMax)/\(tempMin)"
-                self.data.append(forecastStr)
+                let forecast = ForecastDetail(dateStr: dateStr, weatherCode: weatherId, shortDes: shortDes, maxTemp: tempMax, minTemp: tempMin)
+                
+                self.foreCastArray.append(forecast)
             }
             
             //Reload data
@@ -145,8 +145,6 @@ class ForecastListViewController: UITableViewController {
         }
         
         // Start the request
-        self.data.removeAll()
-        
         task.resume()
     }
     
