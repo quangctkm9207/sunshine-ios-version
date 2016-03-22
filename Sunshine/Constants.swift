@@ -49,6 +49,9 @@ struct Constants {
         static let Weather = "weather"
         static let WeatherID = "id"
         static let ShortDes = "main"
+        static let Humidity = "humidity"
+        static let Pressure = "pressure"
+        static let WindSpeed = "speed"
     }
     
 }

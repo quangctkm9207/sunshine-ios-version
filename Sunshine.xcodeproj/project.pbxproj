@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CE1C41921CA16D2A00434D14 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C41911CA16D2A00434D14 /* Utils.swift */; };
 		CE1C41951CA1759100434D14 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C41941CA1759100434D14 /* CustomTableViewCell.swift */; };
+		CE1C41971CA18D0600434D14 /* ForecastDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C41961CA18D0600434D14 /* ForecastDetailViewController.swift */; };
 		CE377F3D1CA0F7A90054A21B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE377F3C1CA0F7A90054A21B /* AppDelegate.swift */; };
 		CE377F3F1CA0F7A90054A21B /* ForecastListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE377F3E1CA0F7A90054A21B /* ForecastListViewController.swift */; };
 		CE377F421CA0F7A90054A21B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE377F401CA0F7A90054A21B /* Main.storyboard */; };
@@ -40,6 +41,7 @@
 /* Begin PBXFileReference section */
 		CE1C41911CA16D2A00434D14 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		CE1C41941CA1759100434D14 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		CE1C41961CA18D0600434D14 /* ForecastDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastDetailViewController.swift; sourceTree = "<group>"; };
 		CE377F391CA0F7A90054A21B /* Sunshine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sunshine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE377F3C1CA0F7A90054A21B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE377F3E1CA0F7A90054A21B /* ForecastListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastListViewController.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				CE377F3E1CA0F7A90054A21B /* ForecastListViewController.swift */,
+				CE1C41961CA18D0600434D14 /* ForecastDetailViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 				CE377F3F1CA0F7A90054A21B /* ForecastListViewController.swift in Sources */,
 				CED2BD591CA1646F001DBEC3 /* ForecastDetail.swift in Sources */,
 				CE377F3D1CA0F7A90054A21B /* AppDelegate.swift in Sources */,
+				CE1C41971CA18D0600434D14 /* ForecastDetailViewController.swift in Sources */,
 				CE377F701CA101D00054A21B /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

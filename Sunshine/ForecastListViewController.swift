@@ -10,14 +10,28 @@ import UIKit
 import Foundation
 
 class ForecastListViewController: UITableViewController {
+    
+    let ShowForecastDetailSegue = "ShowForecastDetail"
 
     var foreCastArray = [ForecastDetail]()
+    
+    var choosenForecast: ForecastDetail!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //Fetch the data
         getForecastData()
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Check segue identifier
+        if segue.identifier == self.ShowForecastDetailSegue {
+            if let controller = segue.destinationViewController as? ForecastDetailViewController {
+                controller.forecastDetail = choosenForecast
+            }
+        
+        }
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -38,6 +52,13 @@ class ForecastListViewController: UITableViewController {
         cell.maxTempLabel.text = "\(forecast.maxTemp) \u{00B0}"
         cell.minTempLabel.text = "\(forecast.minTemp) \u{00B0}"
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        //Set the data to the choosen forecast detail which is used to send to the Detail View Controller
+        choosenForecast = foreCastArray[indexPath.row]
+        performSegueWithIdentifier(self.ShowForecastDetailSegue, sender: nil)
     }
     
     //Send HTTP request to server and get the data
@@ -95,6 +116,8 @@ class ForecastListViewController: UITableViewController {
             // Go throught all forecast and parse the detail resutl
             for var i = 0; i < foreCastArray.count; i++ {
                 let dailyForecast = foreCastArray[i] as [String:AnyObject]
+                
+                // Date in milliseconds
                 guard let dateTime = dailyForecast[Constants.OpenWeatherMapReponseKeys.DateTime] as? Double else {
                     
                     displayError("Cannot find the key \(Constants.OpenWeatherMapReponseKeys.DateTime) in \(dailyForecast)")
@@ -106,11 +129,14 @@ class ForecastListViewController: UITableViewController {
                     return
                 }
                 
+                
+                //Maximum temperature
                 guard let tempMax = tempDictionary[Constants.OpenWeatherMapReponseKeys.TempMax] as? Float else {
                     displayError("Cannot find the key \(Constants.OpenWeatherMapReponseKeys.TempMax) in \(tempDictionary)")
                     return
                 }
                 
+                //Minimum temperature
                 guard let tempMin = tempDictionary[Constants.OpenWeatherMapReponseKeys.TempMin] as? Float else {
                     displayError("Cannot find the key \(Constants.OpenWeatherMapReponseKeys.TempMin) in \(tempDictionary)")
                     return
@@ -121,22 +147,49 @@ class ForecastListViewController: UITableViewController {
                     return
                 }
                 
+                
                 let weatherDictionary = weatherArray[0] as [String: AnyObject]
                 
+                //Short weather description
                 guard let shortDes = weatherDictionary[Constants.OpenWeatherMapReponseKeys.ShortDes] as? String else {
                     displayError("Cannot find the key \(Constants.OpenWeatherMapReponseKeys.ShortDes) in \(weatherDictionary)")
                     return
                 }
+                
+                //Weather ID code
                 guard let weatherId = weatherDictionary[Constants.OpenWeatherMapReponseKeys.WeatherID] as? Int else {
                     displayError("Cannot find the key \(Constants.OpenWeatherMapReponseKeys.WeatherID) in \(weatherDictionary)")
+                    return
+                }
+                
+                
+                //Humidity 
+                guard let humidity = dailyForecast[Constants.OpenWeatherMapReponseKeys.Humidity] as? Float else {
+                    
+                    displayError("Cannot find the key \(Constants.OpenWeatherMapReponseKeys.Humidity) in \(dailyForecast)")
+                    return
+                }
+                
+                //Pressure
+                guard let pressure = dailyForecast[Constants.OpenWeatherMapReponseKeys.Pressure] as? Float else {
+                    
+                    displayError("Cannot find the key \(Constants.OpenWeatherMapReponseKeys.Pressure) in \(dailyForecast)")
+                    return
+                }
+                
+                //Wind speed
+                guard let windSpeed = dailyForecast[Constants.OpenWeatherMapReponseKeys.WindSpeed] as? Float else {
+                    
+                    displayError("Cannot find the key \(Constants.OpenWeatherMapReponseKeys.WindSpeed) in \(dailyForecast)")
                     return
                 }
                 
                 //convert the date 
                 let dateStr = self.formatDateToHumanReadableForm(dateTime)
                 
+                
                 // Use the result
-                let forecast = ForecastDetail(dateStr: dateStr, weatherCode: weatherId, shortDes: shortDes, maxTemp: Int(tempMax), minTemp: Int(tempMin))
+                let forecast = ForecastDetail(dateStr: dateStr, weatherCode: weatherId, shortDes: shortDes, maxTemp: Int(tempMax), minTemp: Int(tempMin), humidity: humidity, pressure: pressure, windSpeed:  windSpeed )
                 
                 self.foreCastArray.append(forecast)
             }
