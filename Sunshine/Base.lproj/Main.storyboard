@@ -22,7 +22,7 @@
             </objects>
             <point key="canvasLocation" x="-904" y="214"/>
         </scene>
-        <!--Sunshine-->
+        <!--Forecast List View Controller-->
         <scene sceneID="VOa-Bp-Eut">
             <objects>
                 <tableViewController id="d7h-Kf-oq4" customClass="ForecastListViewController" customModule="Sunshine" customModuleProvider="target" sceneMemberID="viewController">
@@ -110,8 +110,24 @@
                             <outlet property="delegate" destination="d7h-Kf-oq4" id="Zvd-wF-yuD"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Sunshine" id="tM5-sI-nHc"/>
+                    <navigationItem key="navigationItem" id="tM5-sI-nHc">
+                        <nil key="title"/>
+                        <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter location code or name" textAlignment="natural" minimumFontSize="17" id="GI1-Y2-NTe">
+                            <rect key="frame" x="136.5" y="7" width="327" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="dp7-aY-Z8O">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="updateWeatherByLocation:" destination="d7h-Kf-oq4" id="fgV-mf-cuP"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="searchButton" destination="dp7-aY-Z8O" id="FbI-LB-HFj"/>
+                        <outlet property="searchTextField" destination="GI1-Y2-NTe" id="4mf-sT-zVc"/>
                         <segue destination="UWT-K9-2T6" kind="show" identifier="ShowForecastDetail" id="zvJ-O9-4tV"/>
                     </connections>
                 </tableViewController>

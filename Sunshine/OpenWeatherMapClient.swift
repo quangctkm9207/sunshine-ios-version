@@ -15,12 +15,12 @@ class OpenWeatherMapClient: NSObject {
     var onLoadFinishListener: OnLoadDataListener!
     
     //Send HTTP request to server and get the data
-    func getForecastData() {
+    func getForecastData(locationSearch: String) {
         
         //MARK: Get the query parameters
         let methodParameters = [
             Constants.OpenWeatherMapParameterKeys.ApiKey : Constants.OpenWeatherMap.ApiKey,
-            Constants.OpenWeatherMapParameterKeys.Query : "94030",
+            Constants.OpenWeatherMapParameterKeys.Query : locationSearch,
             Constants.OpenWeatherMapParameterKeys.Format : Constants.OpenWeatherMapParameterValues.Format,
             Constants.OpenWeatherMapParameterKeys.Days : Constants.OpenWeatherMapParameterValues.Days,
             Constants.OpenWeatherMapParameterKeys.Units : Constants.OpenWeatherMapParameterValues.Units
@@ -30,19 +30,20 @@ class OpenWeatherMapClient: NSObject {
         let url = openWeatherMapURLFromParameters(methodParameters)
         
         //MARK: Create the request
-        let request = NSURLRequest(URL: url)
-        
+        let request = NSMutableURLRequest(URL: url)
+        request.timeoutInterval = 30
         //MARK: Make the request
         let task = NSURLSession.sharedSession().dataTaskWithRequest(request){ (data, response, error) in
             
             func displayError(error: String){
                 print(error)
                 //TODO: let user know more about the error
+                self.onLoadFinishListener.OnFinish(self.forecastArray)
             }
             
             //GUARD: was there any error?
             guard error == nil else {
-                displayError("There was an error when making request \(error)")
+                displayError("There was an error when making request \(error!)")
                 return
             }
             

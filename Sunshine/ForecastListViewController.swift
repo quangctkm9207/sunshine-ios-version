@@ -9,9 +9,12 @@
 import UIKit
 import Foundation
 
-class ForecastListViewController: UITableViewController, OnLoadDataListener{
-    
+class ForecastListViewController: UITableViewController, UITextFieldDelegate, OnLoadDataListener{
     let ShowForecastDetailSegue = "ShowForecastDetail"
+
+    @IBOutlet weak var searchTextField: UITextField!
+    
+    @IBOutlet weak var searchButton: UIBarButtonItem!
 
     var foreCastArray = [ForecastDetail]()
     
@@ -19,29 +22,42 @@ class ForecastListViewController: UITableViewController, OnLoadDataListener{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchTextField.delegate = self
         
         //Customize Navigation Bar
         customizeNavigationBar()
         
+        //Enable UI View
+        self.enableUIView(true)
+        
         //Fetch the data
-        updateData()
+        
+        let defaultLocation = "Kyoto"
+        self.updateData(defaultLocation)
+        self.searchTextField.text = defaultLocation
       
     }
-    
-    private func updateData(){
+    @IBAction func updateWeatherByLocation(sender: AnyObject) {
+        let location = searchTextField.text!
+        self.updateData(location)
+    }
+    private func updateData(locationSearch: String){
+        //Disable UI when loading data
+        self.enableUIView(false)
+        
         let client = OpenWeatherMapClient()
         client.onLoadFinishListener = self
-        client.getForecastData()
+        client.getForecastData(locationSearch)
     }
     
     private func customizeNavigationBar(){
         // Change the navigation bar background color to blue.
         navigationController!.navigationBar.barTintColor = UIColor.cyanColor()
         // Change the color of the navigation bar button items to white.
-        navigationController!.navigationBar.tintColor = UIColor.grayColor()
+        navigationController!.navigationBar.tintColor = UIColor.blackColor()
         // Change the color of the navigation bar title text to yellow.
         navigationController!.navigationBar.titleTextAttributes =
-            [NSForegroundColorAttributeName: UIColor.grayColor()]
+            [NSForegroundColorAttributeName: UIColor.blackColor()]
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -84,6 +100,7 @@ class ForecastListViewController: UITableViewController, OnLoadDataListener{
     
     //Override the onFinish method from OnLoadFinishListener
     func OnFinish(forecastArray: [ForecastDetail]) {
+        self.enableUIView(true)
         self.foreCastArray = forecastArray
         self.reloadData()
     }
@@ -93,10 +110,20 @@ class ForecastListViewController: UITableViewController, OnLoadDataListener{
     //update data of the table view
     private func reloadData() {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.enableUIView(true)
             self.tableView.reloadData()
         })
     }
     
+    private func enableUIView(enabled: Bool){
+        self.searchTextField.enabled = enabled
+        self.searchButton.enabled = enabled
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
    
 }
 
