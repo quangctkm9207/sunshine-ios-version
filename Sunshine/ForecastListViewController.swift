@@ -24,7 +24,10 @@ class ForecastListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Fetch the data
+        getForecastData()
     }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.data.count
     }
@@ -40,6 +43,38 @@ class ForecastListViewController: UITableViewController {
         cell.textLabel?.text = forecastStr
         
         return cell
+    }
+    
+    //Send HTTP request to server and get the data
+    private func getForecastData(){
+        
+        //MARK: Get the query parameters
+        let methodParameters = [
+            Constants.OpenWeatherMapParameterKeys.ApiKey : Constants.OpenWeatherMap.ApiKey,
+            Constants.OpenWeatherMapParameterKeys.Query : "94030",
+            Constants.OpenWeatherMapParameterKeys.Format : Constants.OpenWeatherMapParameterValues.Format,
+            Constants.OpenWeatherMapParameterKeys.Days : Constants.OpenWeatherMapParameterValues.Days,
+            Constants.OpenWeatherMapParameterKeys.Units : Constants.OpenWeatherMapParameterValues.Units
+        ]
+        
+        //MARK: Build the URLs
+        let url = openWeatherMapURLFromParameters(methodParameters)
+        print(url)
+    }
+    
+    //Build URLs
+    func openWeatherMapURLFromParameters(parameters: [String:AnyObject]) -> NSURL {
+        let urlComponents = NSURLComponents()
+        urlComponents.scheme = Constants.OpenWeatherMap.ApiScheme
+        urlComponents.host = Constants.OpenWeatherMap.ApiHost
+        urlComponents.path = Constants.OpenWeatherMap.ApiPath
+        urlComponents.queryItems = [NSURLQueryItem]()
+        
+        for (key,value) in parameters {
+            let queryItem = NSURLQueryItem(name: key, value: "\(value)")
+            urlComponents.queryItems!.append(queryItem)
+        }
+        return urlComponents.URL!
     }
 
 
