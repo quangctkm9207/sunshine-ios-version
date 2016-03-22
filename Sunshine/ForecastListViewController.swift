@@ -26,15 +26,17 @@ class ForecastListViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         //Get reusable cell by identifier
-        let cell = tableView.dequeueReusableCellWithIdentifier("ForecastCell")!
+        let cell = tableView.dequeueReusableCellWithIdentifier("CustomTableViewCell") as! CustomTableViewCell
         
         //Get the data for exact cell
         let forecast = foreCastArray[indexPath.row]
         
         //Populate the data to the cell
-        cell.textLabel?.text = forecast.dateStr
-        cell.detailTextLabel?.text = forecast.shortDes
-        cell.imageView?.image = Utils.getIconResourceForWeatherCondition(forecast.weatherCode)
+        cell.weatherIconImageView.image = Utils.getIconResourceForWeatherCondition(forecast.weatherCode)
+        cell.dateLabelView.text = forecast.dateStr
+        cell.shortDesLabelView.text = forecast.shortDes
+        cell.maxTempLabel.text = "\(forecast.maxTemp) \u{00B0}"
+        cell.minTempLabel.text = "\(forecast.minTemp) \u{00B0}"
         return cell
     }
     
@@ -134,7 +136,7 @@ class ForecastListViewController: UITableViewController {
                 let dateStr = self.formatDateToHumanReadableForm(dateTime)
                 
                 // Use the result
-                let forecast = ForecastDetail(dateStr: dateStr, weatherCode: weatherId, shortDes: shortDes, maxTemp: tempMax, minTemp: tempMin)
+                let forecast = ForecastDetail(dateStr: dateStr, weatherCode: weatherId, shortDes: shortDes, maxTemp: Int(tempMax), minTemp: Int(tempMin))
                 
                 self.foreCastArray.append(forecast)
             }

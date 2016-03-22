@@ -11,12 +11,12 @@ struct ForecastDetail{
     let dateStr: String
     let weatherCode: Int
     let shortDes: String
-    let maxTemp: Float
-    let minTemp: Float
+    let maxTemp: Int
+    let minTemp: Int
     
     
     //MARK: Initializers
-    init(dateStr: String, weatherCode: Int, shortDes: String, maxTemp: Float, minTemp: Float){
+    init(dateStr: String, weatherCode: Int, shortDes: String, maxTemp: Int, minTemp: Int){
         self.dateStr = dateStr
         self.weatherCode = weatherCode
         self.shortDes = shortDes
