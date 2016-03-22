@@ -11,14 +11,8 @@ import Foundation
 
 class ForecastListViewController: UITableViewController {
 
-    let data = [
-        "March 22 - Clear - 32/22",
-        "March 23 - Rain - 28/20",
-        "March 24 - Clear - 32/22",
-        "March 25 - Rain - 28/20",
-        "March 26 - Clear - 32/22",
-        "March 27 - Rain - 28/20",
-        "March 28 - Clear - 32/22"
+    var data: [String] = [
+        "1","2"
     ]
     
     override func viewDidLoad() {
@@ -91,12 +85,69 @@ class ForecastListViewController: UITableViewController {
                 displayError("Cannot parse the data \(data)")
                 return
             }
-            print(parsedResult)
+            
+            guard let foreCastArray = parsedResult[Constants.OpenWeatherMapReponseKeys.List] as? [[String:AnyObject]] else{
+                displayError("Cannot find the key '\(Constants.OpenWeatherMapReponseKeys.List)'")
+                return
+            }
+           
+            // Go throught all forecast and parse the detail resutl
+            for var i = 0; i < foreCastArray.count; i++ {
+                let dailyForecast = foreCastArray[i] as [String:AnyObject]
+                guard let dateTime = dailyForecast[Constants.OpenWeatherMapReponseKeys.DateTime] as? Int else {
+                    
+                    displayError("Cannot find the key \(Constants.OpenWeatherMapReponseKeys.DateTime) in \(dailyForecast)")
+                    return
+                }
+                
+                guard let tempDictionary = dailyForecast[Constants.OpenWeatherMapReponseKeys.Temperature] as? [String: AnyObject] else {
+                    displayError("Cannot find the key \(Constants.OpenWeatherMapReponseKeys.Temperature) in \(dailyForecast)")
+                    return
+                }
+                
+                guard let tempMax = tempDictionary[Constants.OpenWeatherMapReponseKeys.TempMax] as? Float else {
+                    displayError("Cannot find the key \(Constants.OpenWeatherMapReponseKeys.TempMax) in \(tempDictionary)")
+                    return
+                }
+                
+                guard let tempMin = tempDictionary[Constants.OpenWeatherMapReponseKeys.TempMin] as? Float else {
+                    displayError("Cannot find the key \(Constants.OpenWeatherMapReponseKeys.TempMin) in \(tempDictionary)")
+                    return
+                }
+                
+                guard let weatherArray = dailyForecast[Constants.OpenWeatherMapReponseKeys.Weather] as? [[String: AnyObject]] else {
+                    displayError("Cannot find the key \(Constants.OpenWeatherMapReponseKeys.Weather) in \(dailyForecast)")
+                    return
+                }
+                
+                let weatherDictionary = weatherArray[0] as [String: AnyObject]
+                
+                guard let shortDes = weatherDictionary[Constants.OpenWeatherMapReponseKeys.ShortDes] as? String else {
+                    displayError("Cannot find the key \(Constants.OpenWeatherMapReponseKeys.ShortDes) in \(weatherDictionary)")
+                    return
+                }
+                guard let weatherId = weatherDictionary[Constants.OpenWeatherMapReponseKeys.WeatherID] as? Int else {
+                    displayError("Cannot find the key \(Constants.OpenWeatherMapReponseKeys.WeatherID) in \(weatherDictionary)")
+                    return
+                }
+                
+                // Use the result
+                let forecastStr = "\(shortDes)-\(weatherId)-\(tempMax)/\(tempMin)"
+                self.data.append(forecastStr)
+                print(forecastStr)
+            }
+            
+            //Reload data
+            self.reloadData()
+            
         }
         
         // Start the request
+        self.data.removeAll()
+        
         task.resume()
     }
+    
     
     //Build URLs
     func openWeatherMapURLFromParameters(parameters: [String:AnyObject]) -> NSURL {
@@ -111,6 +162,13 @@ class ForecastListViewController: UITableViewController {
             urlComponents.queryItems!.append(queryItem)
         }
         return urlComponents.URL!
+    }
+    
+    //Reload data of the table view
+    private func reloadData() {
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.tableView.reloadData()
+        })
     }
 
 

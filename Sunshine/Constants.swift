@@ -38,4 +38,17 @@ struct Constants {
         static let Units = "metric"
         static let Days = "14"
     }
+    
+    //MARK: ResponseKeys
+    struct OpenWeatherMapReponseKeys{
+        static let List = "list"
+        static let DateTime = "dt"
+        static let Temperature = "temp"
+        static let TempMax = "max"
+        static let TempMin = "min"
+        static let Weather = "weather"
+        static let WeatherID = "id"
+        static let ShortDes = "main"
+    }
+    
 }
