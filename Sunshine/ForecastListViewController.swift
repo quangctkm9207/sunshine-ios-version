@@ -59,7 +59,43 @@ class ForecastListViewController: UITableViewController {
         
         //MARK: Build the URLs
         let url = openWeatherMapURLFromParameters(methodParameters)
-        print(url)
+        
+        //MARK: Create the request
+        let request = NSURLRequest(URL: url)
+        
+        //MARK: Make the request 
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request){ (data, response, error) in
+            
+            func displayError(error: String){
+                print(error)
+                //TODO: let user know more about the error
+            }
+            
+            //GUARD: was there any error? 
+            guard error == nil else {
+                displayError("There was an error when making request \(error)")
+                return
+            }
+            
+            //GUARD: was data is empty
+            guard let data = data else{
+                displayError("No data was returned")
+                return
+            }
+            
+            //Parse the data 
+            let parsedResult: AnyObject!
+            do{
+                parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
+            }catch{
+                displayError("Cannot parse the data \(data)")
+                return
+            }
+            print(parsedResult)
+        }
+        
+        // Start the request
+        task.resume()
     }
     
     //Build URLs

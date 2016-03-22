@@ -99,6 +99,7 @@
 		CE377F3B1CA0F7A90054A21B /* Sunshine */ = {
 			isa = PBXGroup;
 			children = (
+				CE377F711CA10DD40054A21B /* SupportingFiles */,
 				CE377F6C1CA100FD0054A21B /* Model */,
 				CE377F6B1CA0F9BA0054A21B /* Controller */,
 				CE377F6A1CA0F9290054A21B /* Assets */,
@@ -166,6 +167,13 @@
 				CE377F6F1CA101D00054A21B /* Constants.swift */,
 			);
 			name = OpenWeatherMap;
+			sourceTree = "<group>";
+		};
+		CE377F711CA10DD40054A21B /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = SupportingFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
