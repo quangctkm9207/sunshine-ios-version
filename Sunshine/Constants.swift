@@ -14,7 +14,7 @@ struct Constants {
     struct OpenWeatherMap {
         
         //MARK: API KEY
-        static let ApiKey = "a54c279f494adc100df587a32f11344b"
+        static let ApiKey = "YourKey"
         
         //MARK: URLs
         static let ApiScheme = "http"
